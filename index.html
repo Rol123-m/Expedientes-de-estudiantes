@@ -4,169 +4,207 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Gestión - Curso de Griego Koiné</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="logo-section">
-                <i class="fas fa-book-bible logo-icon"></i>
-                <h1>Ministerio "Vivos para Servir"</h1>
-                <h2>Sistema de Gestión de Estudiantes - Griego Koiné</h2>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-book-bible"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Griego Koiné</h1>
+                    <p>Ministerio "Vivos para Servir"</p>
+                </div>
             </div>
-            <div class="stats">
-                <div class="stat-box">
-                    <span class="stat-number" id="total-students">0</span>
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="total-students">13</span>
                     <span class="stat-label">Estudiantes</span>
                 </div>
-                <div class="stat-box">
-                    <span class="stat-number" id="active-students">0</span>
+                <div class="stat-item">
+                    <span class="stat-number" id="active-students">13</span>
                     <span class="stat-label">Activos</span>
                 </div>
-                <div class="stat-box">
-                    <span class="stat-number" id="pastors-count">0</span>
+                <div class="stat-item">
+                    <span class="stat-number" id="pastor-count">4</span>
                     <span class="stat-label">Pastores</span>
                 </div>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <nav class="nav-menu">
-                    <button class="nav-btn active" data-section="dashboard">
-                        <i class="fas fa-home"></i> Inicio
-                    </button>
-                    <button class="nav-btn" data-section="students">
-                        <i class="fas fa-users"></i> Estudiantes
-                    </button>
-                    <button class="nav-btn" data-section="add-student">
-                        <i class="fas fa-user-plus"></i> Nuevo Estudiante
-                    </button>
-                    <button class="nav-btn" data-section="progress">
-                        <i class="fas fa-chart-line"></i> Progreso
-                    </button>
-                    <button class="nav-btn" data-section="exams">
-                        <i class="fas fa-clipboard-check"></i> Exámenes
-                    </button>
-                    <button class="nav-btn" data-section="export">
-                        <i class="fas fa-download"></i> Exportar Datos
-                    </button>
-                </nav>
-                
-                <div class="course-info">
-                    <h3><i class="fas fa-info-circle"></i> Información del Curso</h3>
-                    <p><strong>Asignatura:</strong> Introducción a la Gramática Griega</p>
-                    <p><strong>Profesor:</strong> Yurleidy Domínguez Vega</p>
-                    <p><strong>Duración:</strong> 29 semanas</p>
-                    <p><strong>Estudiantes inscritos:</strong> <span id="sidebar-count">0</span></p>
+                <div class="stat-item">
+                    <span class="stat-number" id="avg-grade">0</span>
+                    <span class="stat-label">Promedio</span>
                 </div>
-            </aside>
+            </div>
+        </div>
+    </header>
 
-            <!-- Content Area -->
-            <section class="content-area">
-                <!-- Dashboard Section -->
-                <div id="dashboard" class="content-section active">
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </li>
+                <li class="nav-item" data-section="students">
+                    <i class="fas fa-users"></i>
+                    <span>Estudiantes</span>
+                </li>
+                <li class="nav-item" data-section="new-student">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Nuevo Estudiante</span>
+                </li>
+                <li class="nav-item" data-section="progress">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progreso</span>
+                </li>
+                <li class="nav-item" data-section="exams">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Exámenes</span>
+                </li>
+                <li class="nav-item" data-section="export">
+                    <i class="fas fa-download"></i>
+                    <span>Exportar Datos</span>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <div class="system-info">
+                    <p><strong>Curso:</strong> Introducción a la Gramática Griega</p>
+                    <p><strong>Duración:</strong> 29 semanas</p>
+                    <p><strong>Estudiantes:</strong> <span id="sidebar-student-count">13</span></p>
+                </div>
+                <button id="backup-btn" class="btn-backup">
+                    <i class="fas fa-save"></i> Backup
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <div class="section-header">
                     <h2><i class="fas fa-tachometer-alt"></i> Panel de Control</h2>
-                    
-                    <div class="dashboard-cards">
-                        <div class="card">
-                            <div class="card-icon" style="background-color: #4CAF50;">
-                                <i class="fas fa-user-check"></i>
-                            </div>
-                            <div class="card-content">
-                                <h3>Estudiantes Activos</h3>
-                                <p class="card-number" id="dashboard-active">0</p>
-                            </div>
+                    <p>Resumen general del curso de Griego Koiné</p>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-icon" style="background-color: #3498db;">
+                            <i class="fas fa-users"></i>
                         </div>
-                        
-                        <div class="card">
-                            <div class="card-icon" style="background-color: #2196F3;">
-                                <i class="fas fa-church"></i>
-                            </div>
-                            <div class="card-content">
-                                <h3>Pastores/Líderes</h3>
-                                <p class="card-number" id="dashboard-leaders">0</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-icon" style="background-color: #FF9800;">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <div class="card-content">
-                                <h3>Con Experiencia</h3>
-                                <p class="card-number" id="dashboard-experienced">0</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-icon" style="background-color: #9C27B0;">
-                                <i class="fas fa-percentage"></i>
-                            </div>
-                            <div class="card-content">
-                                <h3>Promedio Compromiso</h3>
-                                <p class="card-number" id="dashboard-commitment">0%</p>
-                            </div>
+                        <div class="stat-card-content">
+                            <h3>Total Estudiantes</h3>
+                            <p class="stat-card-number" id="card-total-students">13</p>
+                            <p class="stat-card-desc">Inscritos en el curso</p>
                         </div>
                     </div>
                     
-                    <div class="dashboard-charts">
-                        <div class="chart-container">
-                            <h3>Distribución por Rol</h3>
+                    <div class="stat-card">
+                        <div class="stat-card-icon" style="background-color: #2ecc71;">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="stat-card-content">
+                            <h3>Pastores/Líderes</h3>
+                            <p class="stat-card-number" id="card-leaders">7</p>
+                            <p class="stat-card-desc">En roles de liderazgo</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card-icon" style="background-color: #e74c3c;">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="stat-card-content">
+                            <h3>Con Experiencia</h3>
+                            <p class="stat-card-number" id="card-experienced">7</p>
+                            <p class="stat-card-desc">Algo de conocimiento previo</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card-icon" style="background-color: #f39c12;">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="stat-card-content">
+                            <h3>Compromiso Alto</h3>
+                            <p class="stat-card-number" id="card-commitment">12</p>
+                            <p class="stat-card-desc">Comprometidos con el curso</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts -->
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3><i class="fas fa-chart-pie"></i> Distribución por Rol</h3>
+                        <div class="chart-wrapper">
                             <canvas id="roleChart"></canvas>
                         </div>
-                        
-                        <div class="chart-container">
-                            <h3>Experiencia en Griego</h3>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h3><i class="fas fa-chart-bar"></i> Experiencia en Griego</h3>
+                        <div class="chart-wrapper">
                             <canvas id="experienceChart"></canvas>
                         </div>
                     </div>
-                    
-                    <div class="recent-activity">
-                        <h3><i class="fas fa-history"></i> Actividad Reciente</h3>
-                        <div id="activity-list">
-                            <p class="empty-message">No hay actividad registrada aún.</p>
-                        </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="activity-card">
+                    <h3><i class="fas fa-history"></i> Actividad Reciente</h3>
+                    <div class="activity-list" id="activity-list">
+                        <!-- Las actividades se cargarán dinámicamente -->
                     </div>
                 </div>
+            </section>
 
-                <!-- Students List Section -->
-                <div id="students" class="content-section">
+            <!-- Students List Section -->
+            <section id="students" class="content-section">
+                <div class="section-header">
                     <h2><i class="fas fa-users"></i> Lista de Estudiantes</h2>
-                    
-                    <div class="controls">
+                    <div class="header-actions">
                         <div class="search-box">
                             <i class="fas fa-search"></i>
-                            <input type="text" id="search-input" placeholder="Buscar estudiante...">
+                            <input type="text" id="student-search" placeholder="Buscar estudiante...">
                         </div>
-                        <div class="filter-box">
-                            <select id="filter-role">
-                                <option value="">Todos los roles</option>
+                        <div class="filter-container">
+                            <select id="role-filter" class="filter-select">
+                                <option value="all">Todos los roles</option>
                                 <option value="Pastor">Pastor</option>
                                 <option value="Líder">Líder</option>
                                 <option value="Estudiante">Estudiante</option>
-                                <option value="otro">Otro</option>
+                                <option value="Otro">Otro</option>
                             </select>
                         </div>
                     </div>
-                    
-                    <div class="students-list" id="students-list">
-                        <!-- Los estudiantes se cargarán aquí con JavaScript -->
-                        <p class="empty-message">Cargando estudiantes...</p>
-                    </div>
                 </div>
+                
+                <div class="students-grid" id="students-grid">
+                    <!-- Las tarjetas de estudiantes se cargarán dinámicamente -->
+                </div>
+            </section>
 
-                <!-- Add Student Section -->
-                <div id="add-student" class="content-section">
+            <!-- New Student Section -->
+            <section id="new-student" class="content-section">
+                <div class="section-header">
                     <h2><i class="fas fa-user-plus"></i> Registrar Nuevo Estudiante</h2>
-                    
-                    <form id="student-form" class="student-form">
-                        <div class="form-row">
+                    <p>Complete todos los campos para registrar un nuevo estudiante</p>
+                </div>
+                
+                <form id="new-student-form" class="student-form">
+                    <div class="form-section">
+                        <h3><i class="fas fa-user-circle"></i> Información Personal</h3>
+                        <div class="form-grid">
                             <div class="form-group">
                                 <label for="nombre">Nombre *</label>
                                 <input type="text" id="nombre" required>
@@ -175,329 +213,393 @@
                                 <label for="apellidos">Apellidos *</label>
                                 <input type="text" id="apellidos" required>
                             </div>
-                        </div>
-                        
-                        <div class="form-row">
                             <div class="form-group">
                                 <label for="email">Email *</label>
                                 <input type="email" id="email" required>
+                                <span class="error-message" id="email-error"></span>
                             </div>
                             <div class="form-group">
                                 <label for="telefono">Teléfono</label>
                                 <input type="text" id="telefono">
                             </div>
+                            <div class="form-group full-width">
+                                <label for="direccion">Dirección Completa</label>
+                                <textarea id="direccion" rows="2"></textarea>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="direccion">Dirección</label>
-                            <textarea id="direccion" rows="2"></textarea>
-                        </div>
-                        
-                        <div class="form-row">
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3><i class="fas fa-church"></i> Información Eclesial</h3>
+                        <div class="form-grid">
                             <div class="form-group">
-                                <label for="rol">Rol *</label>
+                                <label for="rol">Rol en la Iglesia *</label>
                                 <select id="rol" required>
-                                    <option value="">Seleccionar...</option>
+                                    <option value="">Seleccione un rol</option>
                                     <option value="Pastor">Pastor</option>
                                     <option value="Líder">Líder</option>
                                     <option value="Estudiante">Estudiante</option>
-                                    <option value="otro">Otro</option>
+                                    <option value="Otro">Otro</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="experiencia">Experiencia en griego *</label>
+                                <label for="denominacion">Denominación *</label>
+                                <input type="text" id="denominacion" value="Bautista" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="iglesia">Iglesia *</label>
+                                <input type="text" id="iglesia" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pastor">Pastor *</label>
+                                <input type="text" id="pastor" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3><i class="fas fa-graduation-cap"></i> Información Académica</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="experiencia">Experiencia en Griego *</label>
                                 <select id="experiencia" required>
-                                    <option value="">Seleccionar...</option>
+                                    <option value="">Seleccione experiencia</option>
                                     <option value="No">No</option>
+                                    <option value="Solo un poco">Solo un poco</option>
                                     <option value="Sí">Sí</option>
-                                    <option value="solo un poco">Solo un poco</option>
                                 </select>
                             </div>
-                        </div>
-                        
-                        <div class="form-row">
                             <div class="form-group">
-                                <label for="denominacion">Denominación</label>
-                                <input type="text" id="denominacion" value="Bautista">
-                            </div>
-                            <div class="form-group">
-                                <label for="iglesia">Iglesia</label>
-                                <input type="text" id="iglesia">
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="pastor">Pastor</label>
-                                <input type="text" id="pastor">
-                            </div>
-                            <div class="form-group">
-                                <label for="referido">¿Cómo supo del curso?</label>
-                                <select id="referido">
-                                    <option value="">Seleccionar...</option>
-                                    <option value="Amigo">A través de un amigo</option>
-                                    <option value="Pastor">Mi pastor me invitó</option>
-                                    <option value="Sitio web">Sitio promocional del ministerio</option>
+                                <label for="referido">¿Cómo se enteró del curso? *</label>
+                                <select id="referido" required>
+                                    <option value="">Seleccione opción</option>
+                                    <option value="Amigo">Amigo</option>
+                                    <option value="Pastor">Pastor</option>
+                                    <option value="Sitio web">Sitio web</option>
                                     <option value="Redes sociales">Redes sociales</option>
                                     <option value="Otro">Otro</option>
                                 </select>
                             </div>
+                            <div class="form-group full-width">
+                                <label for="motivacion">Motivación para aprender *</label>
+                                <textarea id="motivacion" rows="2" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="compromiso">Nivel de Compromiso *</label>
+                                <select id="compromiso" required>
+                                    <option value="">Seleccione compromiso</option>
+                                    <option value="Sí">Sí</option>
+                                    <option value="Lo intentaré">Lo intentaré</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="motivacion">Motivación para aprender griego</label>
-                            <textarea id="motivacion" rows="3"></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="compromiso">Compromiso *</label>
-                            <select id="compromiso" required>
-                                <option value="">Seleccionar...</option>
-                                <option value="Sí">Sí</option>
-                                <option value="Lo intentaré">Lo intentaré</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Guardar Estudiante
-                            </button>
-                            <button type="button" id="clear-form" class="btn btn-secondary">
-                                <i class="fas fa-eraser"></i> Limpiar Formulario
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Guardar Estudiante
+                        </button>
+                        <button type="button" id="clear-form" class="btn btn-secondary">
+                            <i class="fas fa-broom"></i> Limpiar Formulario
+                        </button>
+                    </div>
+                </form>
+            </section>
 
-                <!-- Progress Tracking Section -->
-                <div id="progress" class="content-section">
+            <!-- Student Progress Section -->
+            <section id="progress" class="content-section">
+                <div class="section-header">
                     <h2><i class="fas fa-chart-line"></i> Seguimiento de Progreso</h2>
+                    <div class="header-actions">
+                        <select id="student-select" class="filter-select">
+                            <option value="">Seleccione un estudiante...</option>
+                            <!-- Las opciones se cargarán dinámicamente -->
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div id="student-details" class="student-details-card">
+                        <div class="details-header">
+                            <div class="details-title">
+                                <h3>Seleccione un estudiante para ver su progreso</h3>
+                                <p>Use el menú desplegable arriba para seleccionar un estudiante</p>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <div class="progress-controls">
-                        <div class="form-group">
-                            <label for="select-student">Seleccionar Estudiante:</label>
-                            <select id="select-student">
-                                <option value="">Seleccionar estudiante...</option>
+                    <div class="progress-actions" id="progress-actions" style="display: none;">
+                        <button id="add-progress-btn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Añadir Registro de Progreso
+                        </button>
+                        <button id="add-note-btn" class="btn btn-secondary">
+                            <i class="fas fa-sticky-note"></i> Añadir Nota
+                        </button>
+                    </div>
+                    
+                    <div id="progress-history" class="progress-history">
+                        <!-- El historial se cargará dinámicamente -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exams Section -->
+            <section id="exams" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-file-alt"></i> Registro de Exámenes</h2>
+                    <div class="header-actions">
+                        <button id="add-exam-btn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Agregar Examen
+                        </button>
+                        <div class="filter-container">
+                            <select id="exam-student-filter" class="filter-select">
+                                <option value="all">Todos los estudiantes</option>
+                                <!-- Las opciones se cargarán dinámicamente -->
+                            </select>
+                            <select id="exam-week-filter" class="filter-select">
+                                <option value="all">Todas las semanas</option>
+                                <!-- Las semanas se cargarán dinámicamente -->
                             </select>
                         </div>
                     </div>
-                    
-                    <div id="progress-content">
-                        <div class="empty-state">
-                            <i class="fas fa-user-chart"></i>
-                            <p>Selecciona un estudiante para ver su progreso</p>
-                        </div>
-                    </div>
                 </div>
-
-                <!-- Exams Section -->
-                <div id="exams" class="content-section">
-                    <h2><i class="fas fa-clipboard-check"></i> Registro de Exámenes</h2>
-                    
-                    <div class="exams-controls">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="exam-student">Estudiante:</label>
-                                <select id="exam-student">
-                                    <option value="">Todos los estudiantes</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="exam-week">Semana:</label>
-                                <select id="exam-week">
-                                    <option value="">Todas las semanas</option>
-                                    <!-- Las opciones se generarán con JavaScript -->
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="exams-table-container">
-                        <table class="exams-table">
-                            <thead>
-                                <tr>
-                                    <th>Estudiante</th>
-                                    <th>Semana</th>
-                                    <th>Examen</th>
-                                    <th>Nota</th>
-                                    <th>Fecha</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="exams-table-body">
-                                <tr>
-                                    <td colspan="7" class="empty-message">No hay exámenes registrados aún.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <button id="add-exam-btn" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Agregar Calificación
-                    </button>
+                
+                <div class="exams-table-container">
+                    <table class="data-table" id="exams-table">
+                        <thead>
+                            <tr>
+                                <th>Estudiante</th>
+                                <th>Semana</th>
+                                <th>Examen</th>
+                                <th>Calificación</th>
+                                <th>Estado</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="exams-table-body">
+                            <!-- Las filas se cargarán dinámicamente -->
+                        </tbody>
+                    </table>
                 </div>
+            </section>
 
-                <!-- Export Section -->
-                <div id="export" class="content-section">
-                    <h2><i class="fas fa-download"></i> Exportar Datos</h2>
-                    
-                    <div class="export-options">
-                        <div class="export-card">
-                            <div class="export-icon">
-                                <i class="fas fa-file-csv"></i>
-                            </div>
-                            <div class="export-content">
-                                <h3>Exportar a CSV</h3>
-                                <p>Exporta los datos de estudiantes en formato CSV compatible con Excel.</p>
-                                <button id="export-csv" class="btn btn-primary">
-                                    <i class="fas fa-download"></i> Descargar CSV
-                                </button>
-                            </div>
+            <!-- Export Section -->
+            <section id="export" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-download"></i> Exportación de Datos</h2>
+                    <p>Exporte los datos del curso en diferentes formatos</p>
+                </div>
+                
+                <div class="export-options">
+                    <div class="export-card">
+                        <div class="export-icon">
+                            <i class="fas fa-file-csv"></i>
                         </div>
-                        
-                        <div class="export-card">
-                            <div class="export-icon">
-                                <i class="fas fa-file-excel"></i>
-                            </div>
-                            <div class="export-content">
-                                <h3>Exportar a Excel</h3>
-                                <p>Genera un archivo Excel con todos los datos de estudiantes y progreso.</p>
-                                <button id="export-excel" class="btn btn-primary">
-                                    <i class="fas fa-download"></i> Descargar Excel
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="export-card">
-                            <div class="export-icon">
-                                <i class="fas fa-file-pdf"></i>
-                            </div>
-                            <div class="export-content">
-                                <h3>Exportar a PDF</h3>
-                                <p>Genera reportes en PDF por estudiante o grupo.</p>
-                                <button id="export-pdf" class="btn btn-primary">
-                                    <i class="fas fa-download"></i> Generar PDF
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="export-card">
-                            <div class="export-icon">
-                                <i class="fas fa-database"></i>
-                            </div>
-                            <div class="export-content">
-                                <h3>Respaldar Datos</h3>
-                                <p>Guarda una copia de seguridad de toda la base de datos.</p>
-                                <button id="backup-data" class="btn btn-secondary">
-                                    <i class="fas fa-save"></i> Crear Backup
-                                </button>
-                            </div>
-                        </div>
+                        <h3>Exportar a CSV</h3>
+                        <p>Formato compatible con Excel y otros programas</p>
+                        <button id="export-csv" class="btn btn-primary">
+                            <i class="fas fa-download"></i> Descargar CSV
+                        </button>
                     </div>
                     
-                    <div class="import-section">
-                        <h3><i class="fas fa-upload"></i> Importar Datos</h3>
-                        <p>Importa datos desde un archivo JSON o CSV.</p>
-                        <div class="import-controls">
-                            <input type="file" id="import-file" accept=".json,.csv">
-                            <button id="import-data" class="btn btn-secondary">
-                                <i class="fas fa-upload"></i> Importar
+                    <div class="export-card">
+                        <div class="export-icon">
+                            <i class="fas fa-file-excel"></i>
+                        </div>
+                        <h3>Exportar a Excel</h3>
+                        <p>Archivo .xlsx con formato Excel</p>
+                        <button id="export-excel" class="btn btn-primary">
+                            <i class="fas fa-download"></i> Descargar Excel
+                        </button>
+                    </div>
+                    
+                    <div class="export-card">
+                        <div class="export-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <h3>Exportar a PDF</h3>
+                        <p>Reporte en formato PDF (básico)</p>
+                        <button id="export-pdf" class="btn btn-primary">
+                            <i class="fas fa-download"></i> Generar PDF
+                        </button>
+                    </div>
+                    
+                    <div class="export-card">
+                        <div class="export-icon">
+                            <i class="fas fa-file-code"></i>
+                        </div>
+                        <h3>Backup Completo</h3>
+                        <p>Guardar todos los datos como archivo JSON</p>
+                        <button id="export-json" class="btn btn-secondary">
+                            <i class="fas fa-save"></i> Crear Backup
+                        </button>
+                    </div>
+                    
+                    <div class="export-card">
+                        <div class="export-icon">
+                            <i class="fas fa-file-import"></i>
+                        </div>
+                        <h3>Importar Datos</h3>
+                        <p>Restaurar desde archivo JSON</p>
+                        <div class="import-container">
+                            <input type="file" id="import-file" accept=".json" style="display: none;">
+                            <button id="import-btn" class="btn btn-secondary">
+                                <i class="fas fa-upload"></i> Seleccionar Archivo
                             </button>
+                            <span id="import-filename">No se seleccionó archivo</span>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <p>Ministerio "Vivos para Servir" - Sistema de Gestión de Estudiantes de Griego Koiné</p>
-            <p>© 2024 - Todos los derechos reservados</p>
-        </footer>
     </div>
 
-    <!-- Modal para detalles del estudiante -->
-    <div id="student-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Detalles del Estudiante</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body" id="modal-student-details">
-                <!-- Los detalles se cargarán aquí -->
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary close-modal">Cerrar</button>
-                <button class="btn btn-primary" id="edit-student">Editar</button>
-                <button class="btn btn-danger" id="delete-student">Eliminar</button>
-            </div>
+    <!-- Modal for Progress/Notes -->
+    <div id="modal-overlay" class="modal-overlay"></div>
+    
+    <div id="progress-modal" class="modal">
+        <div class="modal-header">
+            <h3 id="modal-title">Añadir Registro de Progreso</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="progress-form">
+                <div class="form-group">
+                    <label for="progress-type">Tipo de Registro *</label>
+                    <select id="progress-type" required>
+                        <option value="">Seleccione tipo</option>
+                        <option value="Asistencia">Asistencia</option>
+                        <option value="Participación">Participación</option>
+                        <option value="Tarea">Tarea</option>
+                        <option value="Evaluación">Evaluación</option>
+                        <option value="Proyecto">Proyecto</option>
+                        <option value="Examen">Examen</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="progress-description">Descripción *</label>
+                    <input type="text" id="progress-description" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="progress-grade">Calificación (0-100)</label>
+                    <input type="number" id="progress-grade" min="0" max="100" step="0.1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="progress-status">Estado *</label>
+                    <select id="progress-status" required>
+                        <option value="">Seleccione estado</option>
+                        <option value="Completado">Completado</option>
+                        <option value="En progreso">En progreso</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Excelente">Excelente</option>
+                        <option value="Necesita mejorar">Necesita mejorar</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="progress-observations">Observaciones</label>
+                    <textarea id="progress-observations" rows="3"></textarea>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary modal-close">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
-
-    <!-- Modal para agregar examen -->
+    
     <div id="exam-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Registrar Calificación de Examen</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="exam-form">
-                    <div class="form-group">
-                        <label for="modal-exam-student">Estudiante *</label>
-                        <select id="modal-exam-student" required>
-                            <option value="">Seleccionar estudiante...</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="modal-exam-week">Semana *</label>
-                            <select id="modal-exam-week" required>
-                                <option value="">Seleccionar semana...</option>
-                                <!-- Las semanas se generarán con JavaScript -->
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="modal-exam-number">Número de Examen *</label>
-                            <select id="modal-exam-number" required>
-                                <option value="">Seleccionar...</option>
-                                <!-- Los exámenes se generarán con JavaScript -->
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="modal-exam-grade">Calificación (0-100) *</label>
-                            <input type="number" id="modal-exam-grade" min="0" max="100" step="0.1" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="modal-exam-date">Fecha *</label>
-                            <input type="date" id="modal-exam-date" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="modal-exam-notes">Observaciones</label>
-                        <textarea id="modal-exam-notes" rows="3"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary close-modal">Cancelar</button>
-                <button class="btn btn-primary" id="save-exam">Guardar Calificación</button>
-            </div>
+        <div class="modal-header">
+            <h3 id="exam-modal-title">Registrar Nuevo Examen</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="exam-form">
+                <div class="form-group">
+                    <label for="exam-student">Estudiante *</label>
+                    <select id="exam-student" required>
+                        <option value="">Seleccione estudiante</option>
+                        <!-- Las opciones se cargarán dinámicamente -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="exam-week">Semana *</label>
+                    <select id="exam-week" required>
+                        <option value="">Seleccione semana</option>
+                        <!-- Las semanas se cargarán dinámicamente -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="exam-type">Tipo de Examen *</label>
+                    <select id="exam-type" required>
+                        <option value="">Seleccione tipo</option>
+                        <option value="Examen 1">Examen 1</option>
+                        <option value="Examen 2">Examen 2</option>
+                        <option value="Examen 3">Examen 3</option>
+                        <option value="Examen 4">Examen 4</option>
+                        <option value="Examen 5">Examen 5</option>
+                        <option value="Examen 6">Examen 6</option>
+                        <option value="Examen 7">Examen 7</option>
+                        <option value="Examen 8">Examen 8</option>
+                        <option value="Examen 9">Examen 9</option>
+                        <option value="Examen 10">Examen 10</option>
+                        <option value="Examen 11">Examen 11</option>
+                        <option value="Examen 12">Examen 12</option>
+                        <option value="Examen 13">Examen 13</option>
+                        <option value="Examen 14">Examen 14</option>
+                        <option value="Examen 15">Examen 15</option>
+                        <option value="Examen 16">Examen 16</option>
+                        <option value="Examen 17">Examen 17</option>
+                        <option value="Examen 18">Examen 18</option>
+                        <option value="Examen 19">Examen 19</option>
+                        <option value="Examen 20">Examen 20</option>
+                        <option value="Examen 21">Examen 21</option>
+                        <option value="Examen 22">Examen 22</option>
+                        <option value="Examen 23">Examen 23</option>
+                        <option value="Examen 24">Examen 24</option>
+                        <option value="Examen 25">Examen 25</option>
+                        <option value="Examen 26">Examen 26</option>
+                        <option value="Examen Intermedio">Examen Intermedio</option>
+                        <option value="Examen Final">Examen Final</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="exam-grade">Calificación (0-100) *</label>
+                    <input type="number" id="exam-grade" min="0" max="100" step="0.1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="exam-date">Fecha *</label>
+                    <input type="date" id="exam-date" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="exam-notes">Observaciones</label>
+                    <textarea id="exam-notes" rows="3"></textarea>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary">Guardar Examen</button>
+                    <button type="button" class="btn btn-secondary modal-close">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <!-- Toast notifications -->
-    <div id="toast-container"></div>
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
 
+    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
 </html>
